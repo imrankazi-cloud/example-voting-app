@@ -3,7 +3,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+  paths:
+    include:
+      - result
 
 resources:
 - repo: self
@@ -42,5 +44,6 @@ stages:
         containerRegistry: 'dockerhub'
         repository: 'resultapp'
         command: 'push'
+        tags: '$(tag)'
          
 
