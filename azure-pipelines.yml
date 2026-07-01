@@ -14,27 +14,11 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName: Build image
+- stage: BuildandPush
+  displayName: Build and Push the image
   jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-          containerRegistry: 'dockerhub'
-          repository: 'resultapp'
-          command: 'build'
-          Dockerfile: '**/result/Dockerfile'
-          tags: '$(tag)'
-- stage: Push
-  displayName: Push the image
-  jobs:
-  - job: Push
-    displayName: Push
+  - job: BuildandPush
+    displayName: Build and Push
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -43,7 +27,8 @@ stages:
       inputs:
         containerRegistry: 'dockerhub'
         repository: 'resultapp'
-        command: 'push'
-        tags: '$(tag)'
+        command: 'buildAndPush'
+        Dockerfile: 'result/Dockerfile'
+        
          
 
